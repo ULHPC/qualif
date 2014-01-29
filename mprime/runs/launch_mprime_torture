@@ -1,0 +1,70 @@
+#! /bin/bash
+################################################################################
+# launch_mprime_torture - launch Mprime torture test on the UL HPC platform
+# Time-stamp: <Thu 2014-01-28 1837 svarrette>
+#
+# Copyright (c) 2014 Hyacinthe Cartiaux <Hyacinthe.Cartiaux@uni.lu>
+################################################################################
+#
+# Submit this job in passive mode by
+#
+#   oarsub [options] -S ./launcher_mprime_torture
+
+
+##########################
+#                        #
+#   The OAR  directives  #
+#                        #
+##########################
+#
+#          Set number of resources
+#
+
+#OAR -l nodes=2,walltime=2
+
+#          Set the name of the job (up to 15 characters,
+#          no blank spaces, start with alphanumeric character)
+
+#OAR -n MPRIME_TORTURE
+
+#          By default, the standard output and error streams are sent
+#          to files in the current working directory with names:
+#              OAR.%jobid%.stdout  <-  output stream
+#              OAR.%jobid%.stderr  <-  error stream
+#          where %job_id% is the job number assigned when the job is submitted.
+#          Use the directives below to change the files to which the
+#          standard output and error streams are sent, typically to a common file
+
+#OAR -O MPRIME_TORTURE-%jobid%.log
+#OAR -E MPRIME_TORTURE-%jobid%.log
+
+#####################################
+
+if [ -f  /etc/profile ]; then
+    .  /etc/profile
+fi
+
+### Local variables
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BENCH_DATADIR="${SCRIPTDIR}/data/`date +%Y-%m-%d-%H-%M`"
+
+
+MACHINEFILE="/tmp/nodes_${OAR_JOB_ID}"
+cat $OAR_NODEFILE | uniq > $MACHINEFILE
+
+
+RAM_SIZE=16000
+[ -f "/proc/meminfo" ] && RAM_SIZE=`grep MemTotal /proc/meminfo | awk '{print $2}'`
+
+TORTURE_MEM=$(echo "${RAM_SIZE}/1024/1024*80" | bc -l | xargs printf "%1.0f")
+
+
+export TAKTUK_CONNECTOR=oarsh
+
+kash -F -M $MACHINEFILE "mkdir -p $BENCH_DATADIR/\`hostname\`"
+
+kash -F -M $MACHINEFILE "echo TortureMem=${TORTURE_MEM} > ${BENCH_DATADIR}/\`hostname\`/prime.txt"
+
+kash -F -M $MACHINEFILE "$SCRIPTDIR/bin/mprime -t -W${BENCH_DATADIR}/\`hostname\` 2>&1 | tee ${BENCH_DATADIR}/\`hostname\`/mprime.log"
+
+
