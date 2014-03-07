@@ -1,0 +1,24 @@
+#! /bin/bash
+################################################################################
+# generate_data - translate iorun output to gnuplot dat file
+# Time-stamp: <Thu 2014-01-28 19:42 hcartiaux>
+#
+# Copyright (c) 2014 Hyacinthe Cartiaux <Hyacinthe.Cartiaux@uni.lu>
+################################################################################
+
+BENCH_DATADIR="runs/data"
+
+LAST_OUTPUT_FILE=`ls -1 $BENCH_DATADIR | tail -n1`
+[ -z "$LAST_OUTPUT_FILE" ] && echo "No log file found" && exit 1
+OUTPUT_FILE="${BENCH_DATADIR}/${LAST_OUTPUT_FILE}"
+
+DATA_FILE="plots/iorun.dat"
+
+echo "# #Node #Write (MiB/s) #Read (MiB/s)" > $DATA_FILE
+
+paste <(seq 1 `grep -c "Max Write" $OUTPUT_FILE`) \
+      <(cat $OUTPUT_FILE | grep "Max Write" | awk '{print $3}') \
+      <(cat $OUTPUT_FILE | grep "Max Read"  | awk '{print $3}') \
+                                  >> $DATA_FILE
+
+
