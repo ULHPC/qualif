@@ -1,6 +1,6 @@
 #!/bin/bash
 ###############################################################################
-### Benchmarking Annex v1.3 2014-07-10 Valentin.Plugaru@gmail.com           ###
+### Benchmarking Annex v1.4 2014-07-10 Valentin.Plugaru@gmail.com           ###
 ###                                                                         ###
 ###############################################################################
 
@@ -172,7 +172,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	testresults[8]=1
 	if [[ "$(grep -c 'iozone test complete' $TMPFILE)" == "1" ]]; then
 	 	testresults[8]=0
-		testperformance[8]="$(sed -n '127p' $TMPFILE)"
+		testperformance[8]="$(sed -n '129p' $TMPFILE)"
 	fi
 	
 	#### Section 2b - IOZONE 1GB file test
