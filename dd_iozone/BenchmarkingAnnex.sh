@@ -1,6 +1,6 @@
 #!/bin/bash
 ###############################################################################
-### Benchmarking Annex v1.2 2014-03-07 Valentin.Plugaru@gmail.com           ###
+### Benchmarking Annex v1.3 2014-07-10 Valentin.Plugaru@gmail.com           ###
 ###                                                                         ###
 ###############################################################################
 
@@ -74,11 +74,23 @@ if [[ ! -x "$(which iozone)" ]]; then
     echo "== The 'iozone' utility was not found, cannot execute tests."
     echo "-- Compile it with the following instructions (requires system C compiler)"
     echo "-- then rerun this script:"
-    echo "wget http://www.iozone.org/src/current/iozone3_420.tar"
-    echo "tar xvf iozone3_420.tar"
-    echo "cd iozone3_420/src/current"
+    echo "wget http://www.iozone.org/src/current/iozone3_427.tgz"
+    echo "tar xzvf iozone3_427.tgz"
+    echo "cd iozone3_427/src/current"
     echo "make linux-AMD64"
-    echo "export PATH=$(pwd)/iozone3_420/src/current:$PATH"
+    echo "export PATH=$(pwd)/iozone3_427/src/current:$PATH"
+    exit 1
+fi
+
+if [[ "$(iozone -v | grep Version | grep -c 3.427)" != "1" ]]; then
+    echo "== This script requires 'iozone' v3.427, cannot execute tests."
+    echo "-- Compile iozone with the following instructions (requires system C compiler)"
+    echo "-- then rerun this script:"
+    echo "wget http://www.iozone.org/src/current/iozone3_427.tgz"
+    echo "tar xzvf iozone3_427.tgz"
+    echo "cd iozone3_427/src/current"
+    echo "make linux-AMD64"
+    echo "export PATH=$(pwd)/iozone3_427/src/current:$PATH"
     exit 1
 fi
 
@@ -171,7 +183,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	testresults[9]=1
 	if [[ "$(grep -c 'iozone test complete' $TMPFILE)" == "1" ]]; then
 	 	testresults[9]=0
-		testperformance[9]="$(sed -n '25p' $TMPFILE)"
+		testperformance[9]="$(sed -n '27p' $TMPFILE)"
 	fi
 	
 	#### Section 2c - IOZONE 10GB file test
@@ -182,7 +194,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	iozone -s 10g -r 1m 1>$TMPFILE 2>&1
 	if [[ "$(grep -c 'iozone test complete' $TMPFILE)" == "1" ]]; then
 	 	testresults[10]=0
-		testperformance[10]="$(sed -n '25p' $TMPFILE)"
+		testperformance[10]="$(sed -n '27p' $TMPFILE)"
 	fi
 	
 	#### Section 2d - IOZONE 100GB file test
@@ -193,7 +205,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	iozone -s 100g -r 1m 1>$TMPFILE 2>&1
 	if [[ "$(grep -c 'iozone test complete' $TMPFILE)" == "1" ]]; then
 	 	testresults[11]=0
-		testperformance[11]="$(sed -n '25p' $TMPFILE)"
+		testperformance[11]="$(sed -n '27p' $TMPFILE)"
 	fi
 	
 	#### Section 2e - IOZONE 1TB file test
@@ -204,7 +216,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	iozone -s 1000g -r 1m 1>$TMPFILE 2>&1
 	if [[ "$(grep -c 'iozone test complete' $TMPFILE)" == "1" ]]; then
 	 	testresults[12]=0
-		testperformance[12]="$(sed -n '25p' $TMPFILE)"
+		testperformance[12]="$(sed -n '27p' $TMPFILE)"
 	fi
 	
 	#### Section 2f - IOZONE throughput 1GB file size with 1,2,5,10 threads
@@ -220,7 +232,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	done
 	if [[ "${testresults[13]}" == "5" ]]; then
 	 	testresults[13]=0
-		testperformance[13]="$(sed -n '25p' $TMPFILE)"
+		testperformance[13]="$(sed -n '27p' $TMPFILE)"
 	else
 		testresults[13]=1
 	fi
@@ -238,7 +250,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	done
 	if [[ "${testresults[14]}" == "5" ]]; then
 	 	testresults[14]=0
-		testperformance[14]="$(sed -n '25p' $TMPFILE)"
+		testperformance[14]="$(sed -n '27p' $TMPFILE)"
 	else
 		testresults[14]=1
 	fi
@@ -256,7 +268,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	done
 	if [[ "${testresults[15]}" == "5" ]]; then
 	 	testresults[15]=0
-		testperformance[15]="$(sed -n '25p' $TMPFILE)"
+		testperformance[15]="$(sed -n '27p' $TMPFILE)"
 	else
 		testresults[15]=1
 	fi
@@ -274,7 +286,7 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	done
 	if [[ "${testresults[16]}" == "5" ]]; then
 	 	testresults[16]=0
-		testperformance[16]="$(sed -n '25p' $TMPFILE)"
+		testperformance[16]="$(sed -n '27p' $TMPFILE)"
 	else
 		testresults[16]=1
 	fi
