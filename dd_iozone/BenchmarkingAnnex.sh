@@ -230,9 +230,9 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	  iozone -s ${FSIZEPERTHREAD}m -r 1m -t $i 1>$TMPFILE 2>&1
 	  let testresults[13]+=$(grep -c 'iozone test complete' $TMPFILE)
 	done
-	if [[ "${testresults[13]}" == "5" ]]; then
+	if [[ "${testresults[13]}" == "4" ]]; then
 	 	testresults[13]=0
-		testperformance[13]="$(sed -n '27p' $TMPFILE)"
+		testperformance[13]="$(sed -n '28p;35p;42p;49p;56p;63p;70p;77p;84p;91p;98p;105p;112p' $TMPFILE | cut -d = -f 2 | paste -sd '')"
 	else
 		testresults[13]=1
 	fi
@@ -248,9 +248,9 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	  iozone -s ${FSIZEPERTHREAD}m -r 1m -t $i 1>$TMPFILE 2>&1
 	  let testresults[14]+=$(grep -c 'iozone test complete' $TMPFILE)
 	done
-	if [[ "${testresults[14]}" == "5" ]]; then
+	if [[ "${testresults[14]}" == "4" ]]; then
 	 	testresults[14]=0
-		testperformance[14]="$(sed -n '27p' $TMPFILE)"
+		testperformance[14]="$(sed -n '28p;35p;42p;49p;56p;63p;70p;77p;84p;91p;98p;105p;112p' $TMPFILE | cut -d = -f 2 | paste -sd '')"
 	else
 		testresults[14]=1
 	fi
@@ -266,9 +266,9 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	  iozone -s ${FSIZEPERTHREAD}m -r 1m -t $i 1>$TMPFILE 2>&1
 	  let testresults[15]+=$(grep -c 'iozone test complete' $TMPFILE)
 	done
-	if [[ "${testresults[15]}" == "5" ]]; then
+	if [[ "${testresults[15]}" == "4" ]]; then
 	 	testresults[15]=0
-		testperformance[15]="$(sed -n '27p' $TMPFILE)"
+		testperformance[15]="$(sed -n '28p;35p;42p;49p;56p;63p;70p;77p;84p;91p;98p;105p;112p' $TMPFILE | cut -d = -f 2 | paste -sd '')"
 	else
 		testresults[15]=1
 	fi
@@ -284,9 +284,9 @@ if [[ "$TESTSEL" == 'a' || "$TESTSEL" == '2' ]]; then
 	  iozone -s ${FSIZEPERTHREAD}g -r 1m -t $i 1>$TMPFILE 2>&1
 	  let testresults[16]+=$(grep -c 'iozone test complete' $TMPFILE)
 	done
-	if [[ "${testresults[16]}" == "5" ]]; then
+	if [[ "${testresults[16]}" == "4" ]]; then
 	 	testresults[16]=0
-		testperformance[16]="$(sed -n '27p' $TMPFILE)"
+		testperformance[16]="$(sed -n '28p;35p;42p;49p;56p;63p;70p;77p;84p;91p;98p;105p;112p' $TMPFILE | cut -d = -f 2 | paste -sd '')"
 	else
 		testresults[16]=1
 	fi
