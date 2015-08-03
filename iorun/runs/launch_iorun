@@ -46,7 +46,7 @@ fi
 
 ### Modules
 
-module load MVAPICH2
+module load mpi/OpenMPI
 
 ### Local variables
 

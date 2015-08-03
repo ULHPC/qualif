@@ -1,6 +1,6 @@
 #! /bin/bash
 ################################################################################
-# build.sh: Compile iorun using the MVAPICH module
+# build.sh: Compile iorun using the mpi/OpenMPI module
 # Time-stamp: <Thu 2014-01-28 18:36 hcartiaux>
 #
 # Copyright (c) 2014 Hyacinthe Cartiaux <Hyacinthe.Cartiaux@uni.lu>
@@ -39,7 +39,7 @@ if [ -f  /etc/profile ]; then
     .  /etc/profile
 fi
 
-module load MVAPICH2
+module load mpi/OpenMPI
 
 cd ./src/ior
 ./bootstrap

@@ -17,7 +17,7 @@ filesystems.
 You will find in the [UL HPC tutorial](https://github.com/ULHPC/tutorials)
 repository in the `admin/iorun` directory, a Makefile and a launcher script.
 
-The launcher script will launch iorun with MVAPICH2 
+The launcher script will launch iorun with OpenMPI
 
 * running `make fetch` will automatically download IORUN
 * running `make build` will build it src/ior and link the binary in /runs
