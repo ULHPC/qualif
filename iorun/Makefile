@@ -40,10 +40,10 @@ run_interactive:
 	./$(RUNS_DIR)/launch_iorun
 
 run:
-	@if [ -f ./$(RUNS_DIR)/ior ]; then \
+	@if [ -f ./$(RUNS_DIR)/ior ]; then       \
 		oarsub -S ./$(RUNS_DIR)/launch_iorun ; \
-	else
-		echo "=> IORUN is not built yet"; \
+	else																		 \
+		echo "=> IORUN is not built yet";      \
 	fi
 
 plot:
