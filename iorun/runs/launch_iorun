@@ -65,8 +65,9 @@ NODENUMBER=`wc -l $MACHINEFILE | cut -d' ' -f1`
 mkdir -p $BENCH_DATADIR
 
 for i in `seq 1 $NODENUMBER` ;do
-  mpiexec -machinefile $MACHINEFILE -n $i ./runs/ior -a POSIX -N $i \
-          -b $FILESIZE -d 1 -t 128k -o $FILESYSTEM/iorun_bigfile \
-          -e -g -r -w -s 1 -i 1 -vv -F -C -k 2>&1 | tee -a $OUTPUT_FILE ;
+  mpirun --map-by ppr:1:node  --mca plm_rsh_agent "oarsh"          \
+         -machinefile $MACHINEFILE -n $i ./runs/ior -a POSIX -N $i \
+         -b $FILESIZE -d 1 -t 128k -o $FILESYSTEM/iorun_bigfile    \
+         -e -g -r -w -s 1 -i 1 -vv -F -C -k 2>&1 | tee -a $OUTPUT_FILE ;
 done
 

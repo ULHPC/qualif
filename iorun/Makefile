@@ -17,7 +17,8 @@ SRC_DIR     = src
 RUNS_DIR    = runs
 
 ### Stuff to download
-IORUN_URL   = "https://github.com/chaos/ior.git"
+# IORUN_URL   = "https://github.com/chaos/ior.git"
+IORUN_URL     = "https://github.com/roblatham00/ior.git"
 
 ############################
 .PHONY: all fetch clean plot

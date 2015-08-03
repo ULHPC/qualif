@@ -43,6 +43,7 @@ module load mpi/OpenMPI
 
 cd ./src/ior
 ./bootstrap
+export LIBS="${LIBS} -L/usr/lpp/mmfs/lib/"
 ./configure
 make
 
