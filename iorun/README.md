@@ -29,8 +29,8 @@ The launcher script will launch iorun with OpenMPI
   edit the OAR directives in order to specify the wanted resources, or overload
   them on the command line
 
-    # Run of IORUN on the 72 nodes of the second IB pool for 2 hours
-		(access-gaia)$> oarsub -l nodes=72,walltime=2:0:0 -p ibpool=2 -S "./runs/launch_iorun"
+          # Run of IORUN on the 72 nodes of the second IB pool for 2 hours
+	  (access-gaia)$> oarsub -l nodes=72,walltime=2:0:0 -p ibpool=2 -S "./runs/launch_iorun"
 
 The `runs/data/` directory host all the results (ioruns output).
 
